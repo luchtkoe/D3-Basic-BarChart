@@ -73,8 +73,8 @@ function render(data){                                                          
   d3.selectAll('rect')                                                          // Select all rect for transition
     .transition()                                                               // Initiate transition
     .duration(1000)                                                             // Duration of the transition 1 second
-    .attr('y', (d) => yScale(d.Indonesia))                                      // Rect y coordinate at the end of  the transition
-    .attr('height', (d) => (height - margin.bottom) - yScale(d.Indonesia))      // Rect height at the end of the transition
+    .attr('y', (d) => yScale(d["2030"]))                                      // Rect y coordinate at the end of  the transition
+    .attr('height', (d) => (height - margin.bottom) - yScale(d["2030"]))      // Rect height at the end of the transition
     .delay(function(d,i){console.log(i) ; return(i*100)})                       // Delay for every bar so to start little after each other
     ;
 }
