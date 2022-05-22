@@ -64,18 +64,18 @@ function render(data){                                                          
     .join('rect')                                                               // Append rect for every row in data
     .classed('bar',true)                                                        // Give class to every rect
     .attr('x', (d) => xScale(d.Location))                                       // Set x coordinate for every rect
-    .attr('y', (d) => yScale(d["2030"]))                                        // Set y coordinate for every rect
+    .attr('y', (d) => yScale(0))                                                // Set y coordinate for every rect
     .attr('width', xScale.bandwidth())                                          // Set width for every rect
-    .attr('height', (d) => (height - margin.bottom) - yScale(d["2030"]))        // Set height for every rect
+    .attr('height', (d) => (height - margin.bottom) - yScale(0))                // Set height for every rect
     .attr('fill', 'black')                                                      // Add fill to bars
     ;
 
   d3.selectAll('rect')                                                          // Select all rect for transition
     .transition()                                                               // Initiate transition
     .duration(1000)                                                             // Duration of the transition 1 second
-    .attr('y', (d) => yScale(d["2030"]))                                      // Rect y coordinate at the end of  the transition
-    .attr('height', (d) => (height - margin.bottom) - yScale(d["2030"]))      // Rect height at the end of the transition
-    .delay(function(d,i){console.log(i) ; return(i*100)})                       // Delay for every bar so to start little after each other
+    .attr('y', (d) => yScale(d["2030"]))                                        // Rect y coordinate at the end of  the transition
+    .attr('height', (d) => (height - margin.bottom) - yScale(d["2030"]))        // Rect height at the end of the transition
+    .delay(function(d,i){return(i*100)})                                        // Delay for every bar so to start little after each other
     ;
 }
 
@@ -98,7 +98,7 @@ d3.csv('../Data/PopulationSizeTop102030.csv').then((data) => {
     item["2030"] = +item["2030"] * 1000;                                        // Transform value from key["2030"] from string to integer
     item["Country Code"] = +item["Country Code"]                                // Transform value from key["Country Code"] from string to integer
   });
-  console.log(data)
+
 // Function to start Plotting and Visualisation
   render(data)
 })
