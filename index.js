@@ -69,6 +69,19 @@ function render(data){                                                          
     .attr('height', (d) => (height - margin.bottom) - yScale(d["2030"]))        // Set height for every rect
     .attr('fill', 'black')                                                      // Add fill to bars
     ;
+
+  svg
+    .append('g')                                                                // Add group for labels
+    .classed('labels', true)                                                    // Give classes
+    .selectAll('text')                                                          // Select all text elements
+    .data(data)                                                                 // Bind data
+    .join('text')                                                               // Create text element for every row of data
+    .classed('label',true)                                                      // Give text element class
+    .attr('x', (d) => xScale(d.Location))                                       // Set x coordinate to year
+    .attr('y', (d) => yScale(d["2030"]) - 5)                                        // Set y coordinate to 0 for transition
+    .text((d) => d["2030"])                                                     // Set text
+      ;
+
 }
 
 
