@@ -20,6 +20,25 @@ var svg = d3.select('svg')                                                      
 // Visualise Data
 function render(data){                                                          // Function that will start visualizing the data
 
+//Function to format Integers
+var formatInteger = function(integer){                                          // Function to improve readibility of integers
+  if(integer == 0){                                                             // If Integer  is 0 return 0M
+    return "0M"
+  } else if (integer >= 10000000 && integer< 100000000) {                       // Elseif integer between 10.000.000 and 100.000.00. return format 10m,20m,30m, ....
+    var population = integer;
+    var format = d3.format(".2s")
+    return format(integer)
+  } else if (integer >= 100000000 && integer <1000000000) {                      // elseif >100.000.000 < 1.000.000.000 return format 100m, 120m,150m, ....
+    var population = integer;
+    var format = d3.format(".3s")
+    return format(integer)
+  } else{
+    var population = integer;
+    var format = d3.format(".2s")
+    return format(integer)
+  }
+}
+
   // Scales
   var yScale = d3.scaleLinear()                                                 // Function create linear scale
     .domain([0, d3.max(data, (item) => item["2030"])])                          // Data domain, 0 to highest population size in data
@@ -36,7 +55,7 @@ function render(data){                                                          
   // Axis
   var yAxis = d3.axisLeft()                                                     // Function create axis
     .scale(yScale)                                                              // Axis based on yScale
-
+    .tickFormat((d) => formatInteger(d).replace("G", "B"))
   svg
     .append('g')                                                                // Add group element to place axis in
     .classed('axis y', true)                                                    // Give classes
@@ -78,12 +97,13 @@ function render(data){                                                          
     .join('text')                                                               // Create text element for every row of data
     .classed('label',true)                                                      // Give text element class
     .attr('x', (d) => xScale(d.Location))                                       // Set x coordinate to year
-    .attr('y', (d) => yScale(0) - 5)                                    // Set y coordinate to 0 for transition
-    .text((d) => d["2030"])                                                     // Set text
+    .attr('y', (d) => yScale(0) - 5)                                            // Set y coordinate to 0 for transition
+    .attr('dx', "1em")                                                       // Set dx attribute to center label on bar
+    .text((d) => formatInteger(d["2030"]).replace("G", "B"))                    // Set text
     ;
 
 // TRANSITIONS
-  
+
   // Bar Transition
   d3.selectAll('rect')                                                          // Select all rect for transition
     .transition()                                                               // Initiate transition
@@ -94,7 +114,7 @@ function render(data){                                                          
     ;
 
   // Label Transition
-  d3.selectAll('.label')                                                          // Select all rect for transition
+  d3.selectAll('.label')                                                        // Select all rect for transition
     .transition()                                                               // Initiate transition
     .duration(1000)                                                             // Duration of the transition 1 second
     .attr('y', (d) => yScale(d["2030"]) -5)                                     // text y coordinate - 5 at the end of  the transition
