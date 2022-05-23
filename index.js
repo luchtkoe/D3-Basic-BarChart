@@ -69,7 +69,7 @@ function render(data){                                                          
     .attr('height', (d) => (height - margin.bottom) - yScale(0))                // Set height for every rect
     .attr('fill', 'black')                                                      // Add fill to bars
     ;
-  
+
   svg
     .append('g')                                                                // Add group for labels
     .classed('labels', true)                                                    // Give classes
@@ -78,10 +78,11 @@ function render(data){                                                          
     .join('text')                                                               // Create text element for every row of data
     .classed('label',true)                                                      // Give text element class
     .attr('x', (d) => xScale(d.Location))                                       // Set x coordinate to year
-    .attr('y', (d) => yScale(d["2030"]) - 5)                                    // Set y coordinate to 0 for transition
+    .attr('y', (d) => yScale(0) - 5)                                    // Set y coordinate to 0 for transition
     .text((d) => d["2030"])                                                     // Set text
     ;
 
+//Transitions
   d3.selectAll('rect')                                                          // Select all rect for transition
     .transition()                                                               // Initiate transition
     .duration(1000)                                                             // Duration of the transition 1 second
@@ -89,6 +90,14 @@ function render(data){                                                          
     .attr('height', (d) => (height - margin.bottom) - yScale(d["2030"]))        // Rect height at the end of the transition
     .delay(function(d,i){return(i*100)})                                        // Delay for every bar so to start little after each other
     ;
+
+  d3.selectAll('.label')                                                        // Select all rect for transition
+    .transition()                                                               // Initiate transition
+    .duration(1000)                                                             // Duration of the transition 1 second
+    .attr('y', (d) => yScale(d["2030"]))                                        // label y coordinate at the end of  the transition
+    .delay(function(d,i){return(i*100)})                                        // Delay for every label in line with bars
+    ;
+
 }
 
 
