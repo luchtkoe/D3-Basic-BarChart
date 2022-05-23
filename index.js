@@ -83,6 +83,7 @@ function render(data){                                                          
     ;
 
 // TRANSITIONS
+  
   // Bar Transition
   d3.selectAll('rect')                                                          // Select all rect for transition
     .transition()                                                               // Initiate transition
