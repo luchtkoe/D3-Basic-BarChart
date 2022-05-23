@@ -69,7 +69,7 @@ function render(data){                                                          
     .attr('height', (d) => (height - margin.bottom) - yScale(0))                // Set height for every rect
     .attr('fill', 'black')                                                      // Add fill to bars
     ;
-  
+
   svg
     .append('g')                                                                // Add group for labels
     .classed('labels', true)                                                    // Give classes
@@ -93,7 +93,7 @@ function render(data){                                                          
 
 
 // DATA LOADING
-d3.csv('../Data/PopulationSizeTop102030.csv').then((data) => {
+d3.csv('PopulationSizeTop102030.csv').then((data) => {
 
 // DATA CLEANING & PREPARATION
 
