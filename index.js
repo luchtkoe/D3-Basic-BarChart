@@ -82,7 +82,9 @@ function render(data){                                                          
     .text((d) => d["2030"])                                                     // Set text
     ;
 
-//Transitions
+// TRANSITIONS
+  
+  // Bar Transition
   d3.selectAll('rect')                                                          // Select all rect for transition
     .transition()                                                               // Initiate transition
     .duration(1000)                                                             // Duration of the transition 1 second
@@ -91,18 +93,18 @@ function render(data){                                                          
     .delay(function(d,i){return(i*100)})                                        // Delay for every bar so to start little after each other
     ;
 
-  d3.selectAll('.label')                                                        // Select all rect for transition
+  // Label Transition
+  d3.selectAll('.label')                                                          // Select all rect for transition
     .transition()                                                               // Initiate transition
     .duration(1000)                                                             // Duration of the transition 1 second
-    .attr('y', (d) => yScale(d["2030"]))                                        // label y coordinate at the end of  the transition
-    .delay(function(d,i){return(i*100)})                                        // Delay for every label in line with bars
+    .attr('y', (d) => yScale(d["2030"]) -5)                                     // text y coordinate - 5 at the end of  the transition
+    .delay(function(d,i){return(i*100)})                                        // Delay for every text so to start little after each other
     ;
-
 }
 
 
 // DATA LOADING
-d3.csv('../Data/PopulationSizeTop102030.csv').then((data) => {
+d3.csv('PopulationSizeTop102030.csv').then((data) => {
 
 // DATA CLEANING & PREPARATION
 
