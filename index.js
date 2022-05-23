@@ -103,7 +103,7 @@ function render(data){                                                          
 
 
 // DATA LOADING
-d3.csv('../Data/PopulationSizeTop102030.csv').then((data) => {
+d3.csv('PopulationSizeTop102030.csv').then((data) => {
 
 // DATA CLEANING & PREPARATION
 
